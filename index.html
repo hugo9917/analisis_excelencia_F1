@@ -116,6 +116,11 @@ with open('index.html', 'w', encoding='utf-8') as f:
                     <div id="grafico_ranking"></div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-6 plotly-graph-div">
+                    <div id="grafico_campeonatos"></div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -361,6 +366,26 @@ with open('index.html', 'w', encoding='utf-8') as f:
             yaxis: {title: 'Piloto', autorange: 'reversed'}
         };
         Plotly.newPlot('grafico_ranking', data6, layout6);
+
+        // Ejemplo de datos: reemplaza con tus datos reales si lo deseas
+        var pilotos_campeones = [
+            'Lewis Hamilton', 'Michael Schumacher', 'Juan Fangio',
+            'Alain Prost', 'Sebastian Vettel', 'Ayrton Senna', 'Jack Brabham'
+        ];
+        var campeonatos = [7, 7, 5, 4, 4, 3, 3];
+
+        var data_campeonatos = [{
+            x: pilotos_campeones,
+            y: campeonatos,
+            type: 'bar',
+            marker: {color: '#f4a261'}
+        }];
+        var layout_campeonatos = {
+            title: 'Pilotos con Más Campeonatos de F1',
+            yaxis: {title: 'Cantidad de Campeonatos'},
+            xaxis: {title: 'Piloto'}
+        };
+        Plotly.newPlot('grafico_campeonatos', data_campeonatos, layout_campeonatos);
     </script>
 </body>
 </html>""")
