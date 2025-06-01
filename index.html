@@ -323,12 +323,12 @@ with open('index.html', 'w', encoding='utf-8') as f:
 
         // 5. Mapa de Calor de Dominancia por Año y Piloto
         var pilotos_heatmap = ['Verstappen', 'Schumacher', 'Fangio', 'Senna'];
-        var anios_heatmap = ['2002', '2004', '2023'];
+        var anios_heatmap = [2002, 2004, 2023];
         var dominancia_heatmap = [
-            [65, 72, null],    // Schumacher
-            [null, null, 86],  // Verstappen
-            [70, null, null],  // Fangio
-            [null, null, null] // Senna
+            [null, null, 86],   // Verstappen solo en 2023
+            [65, 72, null],     // Schumacher en 2002 y 2004
+            [70, null, null],   // Fangio en 2002 (ejemplo)
+            [null, null, null]  // Senna sin datos en estos años
         ];
         var data5 = [{
             z: dominancia_heatmap,
@@ -340,7 +340,7 @@ with open('index.html', 'w', encoding='utf-8') as f:
         }];
         var layout5 = {
             title: 'Mapa de Calor de Dominancia por Año y Piloto',
-            xaxis: {title: 'Año'},
+            xaxis: {title: 'Año', type: 'category'},
             yaxis: {title: 'Piloto'}
         };
         Plotly.newPlot('grafico_heatmap', data5, layout5);
