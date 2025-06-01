@@ -100,6 +100,22 @@ with open('index.html', 'w', encoding='utf-8') as f:
                     <div id="grafico_victorias"></div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-6 plotly-graph-div">
+                    <div id="grafico_evolucion_decada"></div>
+                </div>
+                <div class="col-md-6 plotly-graph-div">
+                    <div id="grafico_radar"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 plotly-graph-div">
+                    <div id="grafico_heatmap"></div>
+                </div>
+                <div class="col-md-6 plotly-graph-div">
+                    <div id="grafico_ranking"></div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -252,6 +268,99 @@ with open('index.html', 'w', encoding='utf-8') as f:
             margin: {t: 50}
         };
         Plotly.newPlot('grafico_victorias', data2, layout2);
+
+        // 3. Evolución del Índice de Excelencia por Década
+        var decadas = ['1950s', '1960s', '1970s', '1980s', '1990s', '2000s', '2010s', '2020s'];
+        var excelencia = [45, 50, 48, 52, 55, 60, 65, 70];
+        var trace3 = {
+            x: decadas,
+            y: excelencia,
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#e63946', width: 3},
+            marker: {size: 8}
+        };
+        var layout3 = {
+            title: 'Evolución del Índice de Excelencia por Década',
+            yaxis: {title: 'Índice de Excelencia'},
+            xaxis: {title: 'Década'}
+        };
+        Plotly.newPlot('grafico_evolucion_decada', [trace3], layout3);
+
+        // 4. Comparativa de Versatilidad, Dominancia y Consistencia (Radar)
+        var pilotos_radar = ['Verstappen', 'Schumacher', 'Fangio'];
+        var versatilidad = [80, 80, 60];
+        var dominancia = [86, 65, 70];
+        var consistencia = [95, 100, 85];
+        var data4 = [
+            {
+                type: 'scatterpolar',
+                r: [versatilidad[0], dominancia[0], consistencia[0], versatilidad[0]],
+                theta: ['Versatilidad', 'Dominancia', 'Consistencia', 'Versatilidad'],
+                fill: 'toself',
+                name: pilotos_radar[0]
+            },
+            {
+                type: 'scatterpolar',
+                r: [versatilidad[1], dominancia[1], consistencia[1], versatilidad[1]],
+                theta: ['Versatilidad', 'Dominancia', 'Consistencia', 'Versatilidad'],
+                fill: 'toself',
+                name: pilotos_radar[1]
+            },
+            {
+                type: 'scatterpolar',
+                r: [versatilidad[2], dominancia[2], consistencia[2], versatilidad[2]],
+                theta: ['Versatilidad', 'Dominancia', 'Consistencia', 'Versatilidad'],
+                fill: 'toself',
+                name: pilotos_radar[2]
+            }
+        ];
+        var layout4 = {
+            polar: {radialaxis: {visible: true, range: [0, 100]}},
+            title: 'Comparativa de Versatilidad, Dominancia y Consistencia'
+        };
+        Plotly.newPlot('grafico_radar', data4, layout4);
+
+        // 5. Mapa de Calor de Dominancia por Año y Piloto
+        var pilotos_heatmap = ['Verstappen', 'Schumacher', 'Fangio', 'Senna'];
+        var anios_heatmap = ['2002', '2004', '2023'];
+        var dominancia_heatmap = [
+            [65, 72, null],    // Schumacher
+            [null, null, 86],  // Verstappen
+            [70, null, null],  // Fangio
+            [null, null, null] // Senna
+        ];
+        var data5 = [{
+            z: dominancia_heatmap,
+            x: anios_heatmap,
+            y: pilotos_heatmap,
+            type: 'heatmap',
+            colorscale: 'Reds',
+            colorbar: {title: 'Dominancia (%)'}
+        }];
+        var layout5 = {
+            title: 'Mapa de Calor de Dominancia por Año y Piloto',
+            xaxis: {title: 'Año'},
+            yaxis: {title: 'Piloto'}
+        };
+        Plotly.newPlot('grafico_heatmap', data5, layout5);
+
+        // 6. Ranking Histórico de Pilotos por Índice de Excelencia
+        var pilotos_ranking = ['Verstappen', 'Schumacher', 'Fangio', 'Senna', 'Ascari'];
+        var excelencia_ranking = [87.27, 81.57, 78.52, 75.00, 73.00];
+        var data6 = [{
+            x: excelencia_ranking,
+            y: pilotos_ranking,
+            type: 'bar',
+            orientation: 'h',
+            marker: {color: '#457b9d'}
+        }];
+        var layout6 = {
+            title: 'Ranking Histórico de Pilotos por Índice de Excelencia',
+            xaxis: {title: 'Índice de Excelencia'},
+            yaxis: {title: 'Piloto', autorange: 'reversed'}
+        };
+        Plotly.newPlot('grafico_ranking', data6, layout6);
     </script>
 </body>
 </html>""")
