@@ -121,6 +121,11 @@ with open('index.html', 'w', encoding='utf-8') as f:
                     <div id="grafico_campeonatos"></div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-6 plotly-graph-div">
+                    <div id="grafico_senna_prost_1988"></div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -326,30 +331,6 @@ with open('index.html', 'w', encoding='utf-8') as f:
         };
         Plotly.newPlot('grafico_radar', data4, layout4);
 
-        // 5. Mapa de Calor de Dominancia por Año y Piloto
-        var pilotos_heatmap = ['Verstappen', 'Schumacher', 'Fangio', 'Senna'];
-        var anios_heatmap = [2002, 2004, 2023];
-        var dominancia_heatmap = [
-            [null, null, 86],   // Verstappen solo en 2023
-            [65, 72, null],     // Schumacher en 2002 y 2004
-            [70, null, null],   // Fangio en 2002 (ejemplo)
-            [null, null, null]  // Senna sin datos en estos años
-        ];
-        var data5 = [{
-            z: dominancia_heatmap,
-            x: anios_heatmap,
-            y: pilotos_heatmap,
-            type: 'heatmap',
-            colorscale: 'Reds',
-            colorbar: {title: 'Dominancia (%)'}
-        }];
-        var layout5 = {
-            title: 'Mapa de Calor de Dominancia por Año y Piloto',
-            xaxis: {title: 'Año', type: 'category'},
-            yaxis: {title: 'Piloto'}
-        };
-        Plotly.newPlot('grafico_heatmap', data5, layout5);
-
         // 6. Ranking Histórico de Pilotos por Índice de Excelencia
         var pilotos_ranking = ['Verstappen', 'Schumacher', 'Fangio', 'Senna', 'Ascari'];
         var excelencia_ranking = [87.27, 81.57, 78.52, 75.00, 73.00];
@@ -386,6 +367,37 @@ with open('index.html', 'w', encoding='utf-8') as f:
             xaxis: {title: 'Piloto'}
         };
         Plotly.newPlot('grafico_campeonatos', data_campeonatos, layout_campeonatos);
+
+        // Ejemplo para 1988 (puedes ajustar los valores reales)
+        var carreras = [
+            "Brasil", "San Marino", "Mónaco", "México", "Canadá", "Detroit", "Francia", "Gran Bretaña", "Alemania", "Hungría", "Bélgica", "Italia", "Portugal", "España", "Japón", "Australia"
+        ];
+        var senna_puntos = [0, 9, 18, 24, 33, 39, 48, 54, 60, 66, 75, 75, 81, 87, 90, 94];
+        var prost_puntos = [9, 15, 18, 24, 33, 39, 45, 51, 57, 63, 69, 75, 81, 87, 87, 87];
+
+        var trace_senna = {
+            x: carreras,
+            y: senna_puntos,
+            type: 'scatter',
+            mode: 'lines+markers',
+            name: 'Ayrton Senna',
+            line: {color: '#f4a261', width: 3}
+        };
+        var trace_prost = {
+            x: carreras,
+            y: prost_puntos,
+            type: 'scatter',
+            mode: 'lines+markers',
+            name: 'Alain Prost',
+            line: {color: '#457b9d', width: 3}
+        };
+        var layout = {
+            title: 'Evolución de Puntos: Senna vs Prost (1988)',
+            xaxis: {title: 'Carrera'},
+            yaxis: {title: 'Puntos acumulados'},
+            legend: {x: 0.1, y: 1.1, orientation: 'h'}
+        };
+        Plotly.newPlot('grafico_senna_prost_1988', [trace_senna, trace_prost], layout);
     </script>
 </body>
 </html>""")
