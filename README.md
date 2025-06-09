@@ -69,4 +69,4 @@ El análisis se centrará en:
 - Documentación
 
 ## Contacto
-[Tu información de contacto] 
+hugo.astorga.17@gmail.com 
